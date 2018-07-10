@@ -4,5 +4,5 @@ i = keyb.find(f.read(1))
 f.close()
 
 f = open('OUTPUT.TXT', 'w')
-f.write(keyb[i+1])
+f.write(keyb[i + 1])
 f.close()

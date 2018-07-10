@@ -5,7 +5,7 @@ s = f.read()
 f.close()
 
 result = ''
-for i in range(len(s)-1):
+for i in range(len(s) - 1):
     ind = int(s[i], 27) - i - 2
     result += dic[ind]
 

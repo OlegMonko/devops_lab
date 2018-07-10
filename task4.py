@@ -5,7 +5,7 @@ n = int(input())
 
 c = collections.Counter()
 for i in range(n):
-    print('Enter', i+1, 'word')
+    print('Enter', i + 1, 'word')
     c[input()] += 1
 
 print(len(c))

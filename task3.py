@@ -12,8 +12,7 @@ left = int((pars[2]).rstrip(','))
 right = int(pars[5])
 
 result = []
-for i in range(left, right+1):
+for i in range(left, right + 1):
     if verify(i):
         result.append(i)
 print(result)
-

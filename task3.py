@@ -5,14 +5,15 @@ def verify(n):
             return False
     return True
 
-print ('Enter: left = x, right = y')
+
+print('Enter: left = x, right = y')
 pars = input().split()
 left = int((pars[2]).rstrip(','))
 right = int(pars[5])
 
 result = []
-for i in range (left, right+1):
-    if verify (i):
+for i in range(left, right+1):
+    if verify(i):
         result.append(i)
 print(result)
 

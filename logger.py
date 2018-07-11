@@ -6,7 +6,7 @@ import time
 
 def logtxt(i):
     if i == 1:
-        list = ['Count', 'Date', 'Time', 'CPU', 'Mem', 'Swap', 'Disc', \
+        list = ['Count', 'Date', 'Time', 'CPU', 'Mem', 'Swap', 'Disc',
                 'Net', '\n']
         title = '    '.join(list)
         f = open("log.txt", "w")

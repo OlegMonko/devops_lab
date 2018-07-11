@@ -3,9 +3,11 @@ import json
 import psutil
 import time
 
+
 def logtxt(i):
     if i == 1:
-        list = ['Count', 'Date', 'Time', 'CPU', 'Mem', 'Swap', 'Disc', 'Net', '\n']
+        list = ['Count', 'Date', 'Time', 'CPU', 'Mem', 'Swap', 'Disc', \
+                'Net', '\n']
         title = '    '.join(list)
         f = open("log.txt", "w")
         f.write(title)
@@ -47,10 +49,10 @@ def logjson(i):
     f.close()
 
 
-f=open("config.ini", "r")
+f = open("config.ini", "r")
 config = f.read()
 f.close()
-config=config.split()
+config = config.split()
 format = config[3]
 interval = float(config[6]) * 60
 i = 1

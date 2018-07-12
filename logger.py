@@ -56,16 +56,17 @@ class Logger(object):
     def write_json(self):
         log = json.dumps({
             'SNAPSHOT': self.count,
-            'Timestamp' : {
-            'Date': self.date,
-            'Time': self.time },
-            'Status' : {
-            'CPU': self.cpu,
-            'Memory': self.memory,
-            'Virtual memory': self.virtual_memory,
-            'IO information': self.disk,
-            'Network': self.network
-        }}, indent=4)
+            'Timestamp': {
+                'Date': self.date,
+                'Time': self.time
+            },
+            'Status': {
+                'CPU': self.cpu,
+                'Memory': self.memory,
+                'Virtual memory': self.virtual_memory,
+                'IO information': self.disk,
+                'Network': self.network
+            }}, indent=4)
         f = open("log.txt", "a")
         f.write(log + '\n')
         f.close()
@@ -81,12 +82,12 @@ class LoggerYaml(Logger):
             'SNAPSHOT': self.count,
             'Date': self.date + self.time,
             'Status': {
-            'CPU': self.cpu,
-            'Memory': self.memory,
-            'Virtual memory': self.virtual_memory,
-            'IO information': self.disk,
-            'Network': self.network
-        }}, default_flow_style=False)
+                'CPU': self.cpu,
+                'Memory': self.memory,
+                'Virtual memory': self.virtual_memory,
+                'IO information': self.disk,
+                'Network': self.network
+            }}, default_flow_style=False)
         f = open("log.txt", "a")
         f.write(log + '\n')
         f.close()

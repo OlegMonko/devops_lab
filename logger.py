@@ -2,6 +2,7 @@ import datetime
 import json
 import psutil
 import time
+import yaml
 
 
 class Logger(object):
@@ -16,7 +17,7 @@ class Logger(object):
         self.format = config[3]
         self.interval = float(config[6]) * 60
 
-        if self.format != 'json':
+        if self.format == 'txt':
             list = ['Count      ', 'Date      ', 'Time            ',
                     'CPU', 'Mem', 'Swp', 'Disc', 'Net', '\n']
             title = ' '.join(list)
@@ -55,14 +56,16 @@ class Logger(object):
     def write_json(self):
         log = json.dumps({
             'SNAPSHOT': self.count,
+            'Timestamp' : {
             'Date': self.date,
-            'Time': self.time,
+            'Time': self.time },
+            'Status' : {
             'CPU': self.cpu,
             'Memory': self.memory,
             'Virtual memory': self.virtual_memory,
             'IO information': self.disk,
             'Network': self.network
-        }, indent=4)
+        }}, indent=4)
         f = open("log.txt", "a")
         f.write(log + '\n')
         f.close()
@@ -71,12 +74,32 @@ class Logger(object):
         time.sleep(self.interval)
 
 
-log = Logger()
+class LoggerYaml(Logger):
+    'Added writing in YAML'
+    def write_yaml(self):
+        log = yaml.dump({
+            'SNAPSHOT': self.count,
+            'Date': self.date + self.time,
+            'Status': {
+            'CPU': self.cpu,
+            'Memory': self.memory,
+            'Virtual memory': self.virtual_memory,
+            'IO information': self.disk,
+            'Network': self.network
+        }}, default_flow_style=False)
+        f = open("log.txt", "a")
+        f.write(log + '\n')
+        f.close()
+
+
+log = LoggerYaml()
 
 while True:
     log.get_info()
     if log.format == 'json':
         log.write_json()
+    elif log.format == 'yaml':
+        log.write_yaml()
     else:
         log.write_txt()
     log.sleep()

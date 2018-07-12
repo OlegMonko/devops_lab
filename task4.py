@@ -1,13 +1,17 @@
 import collections
 
-print('Enter the number of words')
-n = int(input())
+while True:
+    n = int(input())
+    if 1 <= n <= 100000:
+        break
 
 c = collections.Counter()
 for i in range(n):
-    print('Enter', i + 1, 'word')
     c[input()] += 1
 
 print(len(c))
+result = ''
 for i in c.values():
-    print(i, end=' ')
+    result += str(i) + ' '
+print(result[:-1])
+

@@ -14,4 +14,3 @@ result = ''
 for i in c.values():
     result += str(i) + ' '
 print(result[:-1])
-

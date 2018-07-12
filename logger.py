@@ -4,7 +4,7 @@ import psutil
 import time
 
 
-class Logger:
+class Logger(object):
     'Class for writing system information in log file'
     def __init__(self):
         f = open("config.ini", "r")
@@ -37,7 +37,7 @@ class Logger:
         self.network = len(psutil.net_connections())
 
     def write_txt(self):
-        list = ['SNAPSHOT' ]
+        list = ['SNAPSHOT']
         list.append(str(self.count) + ':')
         list.append(self.date)
         list.append(self.time + ':')

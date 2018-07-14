@@ -28,7 +28,8 @@ def get_config():
 
     url = 'https://api.github.com/repos/' + config['user'] + '/' + \
           config['repo'] + '/pulls?page=1&per_page=100'
-    history = requests.get(url, auth=(config['login'], config['password'])).json()
+    history = requests.get(url, auth=(config['login'], config['password']))
+    history = history.json()
 
     return config, history
 
@@ -62,8 +63,10 @@ def get_comments(history, config):
     for i in history:
         number = str(i['number'])
         url = 'https://api.github.com/repos/' + config['user'] + '/' + \
-              config['repo'] + '/pulls/' + number + '/comments?page=1&per_page=100'
-        history2 = requests.get(url, auth=(config['login'], config['password'])).json()
+              config['repo'] + '/pulls/' + number + \
+              '/comments?page=1&per_page=100'
+        history2 = requests.get(url, auth=(config['login'],
+                                           config['password'])).json()
         print('Comments for ', i['title'], ':', sep='')
         for j in history2:
             print(j['path'], ':', j['user']['login'], ': ', j['body'], sep='')
@@ -74,8 +77,10 @@ def lines_added(history, config):
         number = str(i['number'])
         url = 'https://api.github.com/repos/' + config['user'] + '/' + \
               config['repo'] + '/pulls/' + number + '?page=1&per_page=100'
-        history2 = requests.get(url, auth=(config['login'], config['password'])).json()
-        print(i['title'], ': ', history2['additions'], ' lines were added', sep='')
+        history2 = requests.get(url, auth=(config['login'],
+                                           config['password'])).json()
+        print(i['title'], ': ', history2['additions'],
+              ' lines were added', sep='')
 
 
 conf, hist = get_config()

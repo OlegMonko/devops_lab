@@ -18,7 +18,7 @@ def get_config():
     parser.add_argument('-c', '--comment', default=False, action='store_true',
                         dest='c', help='Show all comments.')
     parser.add_argument('-a', '--add', default=False, action='store_true',
-                        dest='a', help='Number of lines added..')
+                        dest='a', help='Number of lines added.')
     parser.add_argument(metavar='user', dest='user')
     parser.add_argument(metavar='repo', dest='repo')
 

@@ -18,7 +18,7 @@ class Logger(object):
         print(self.format, self.interval)
         if self.format == 'txt':
             lst = ['Count      ', 'Date      ', 'Time            ',
-                    'CPU', 'Mem', 'Swp', 'Disc', 'Net', '\n']
+                   'CPU', 'Mem', 'Swp', 'Disc', 'Net', '\n']
             title = ' '.join(lst)
             f = open("log.txt", "w")
             f.write(title)

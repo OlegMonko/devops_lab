@@ -1,8 +1,8 @@
 import json
 import platform
+import subprocess
 import sys
 import yaml
-import subprocess
 
 from distutils.sysconfig import get_python_lib
 
@@ -54,7 +54,7 @@ def output_json(inf):
         'PYTHONPATH': inf['path'],
         'Installed packages': inf['installed-packages'],
         'Site-packages': inf['site-packages']
-        }, indent=4)
+    }, indent=4)
     with open("out.json", "w") as f:
         f.write(res + '\n')
 
@@ -69,7 +69,7 @@ def output_yaml(inf):
         'PYTHONPATH': inf['path'],
         'Installed packages': inf['installed-packages'],
         'Site-packages': inf['site-packages']
-        }, default_flow_style=False)
+    }, default_flow_style=False)
     with open("out.yaml", "w") as f:
         f.write(res + '\n')
 

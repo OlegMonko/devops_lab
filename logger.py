@@ -1,3 +1,4 @@
+import configparser
 import datetime
 import json
 import psutil
@@ -6,21 +7,19 @@ import yaml
 
 
 class Logger(object):
-    'Class for writing system information in log file'
+    """Class for writing system information in log file"""
     def __init__(self):
-        f = open("config.ini", "r")
-        config = f.read()
-        f.close()
-        config = config.split()
+        config = configparser.ConfigParser()
+        config.read('config.ini')
 
         self.count = 0
-        self.format = config[3]
-        self.interval = float(config[6]) * 60
-
+        self.format = config['common']['output']
+        self.interval = float(config['common']['interval']) * 60
+        print(self.format, self.interval)
         if self.format == 'txt':
-            list = ['Count      ', 'Date      ', 'Time            ',
+            lst = ['Count      ', 'Date      ', 'Time            ',
                     'CPU', 'Mem', 'Swp', 'Disc', 'Net', '\n']
-            title = ' '.join(list)
+            title = ' '.join(lst)
             f = open("log.txt", "w")
             f.write(title)
         else:
@@ -38,23 +37,23 @@ class Logger(object):
         self.network = len(psutil.net_connections())
 
     def write_txt(self):
-        list = ['SNAPSHOT']
-        list.append(str(self.count) + ':')
-        list.append(self.date)
-        list.append(self.time + ':')
-        list.append(str(self.cpu))
-        list.append(str(self.memory))
-        list.append(str(self.virtual_memory))
-        list.append(str(self.disk))
-        list.append(str(self.network))
-        list.append('\n')
-        log = ' '.join(list)
+        lst = ['SNAPSHOT']
+        lst.append(str(self.count) + ':')
+        lst.append(self.date)
+        lst.append(self.time + ':')
+        lst.append(str(self.cpu))
+        lst.append(str(self.memory))
+        lst.append(str(self.virtual_memory))
+        lst.append(str(self.disk))
+        lst.append(str(self.network))
+        lst.append('\n')
+        lg = ' '.join(lst)
         f = open("log.txt", "a")
-        f.write(log)
+        f.write(lg)
         f.close()
 
     def write_json(self):
-        log = json.dumps({
+        lg = json.dumps({
             'SNAPSHOT': self.count,
             'Timestamp': {
                 'Date': self.date,
@@ -68,7 +67,7 @@ class Logger(object):
                 'Network': self.network
             }}, indent=4)
         f = open("log.txt", "a")
-        f.write(log + '\n')
+        f.write(lg + '\n')
         f.close()
 
     def sleep(self):
@@ -76,9 +75,9 @@ class Logger(object):
 
 
 class LoggerYaml(Logger):
-    'Added writing in YAML'
+    """Added writing in YAML"""
     def write_yaml(self):
-        log = yaml.dump({
+        lg = yaml.dump({
             'SNAPSHOT': self.count,
             'Date': self.date + self.time,
             'Status': {
@@ -89,7 +88,7 @@ class LoggerYaml(Logger):
                 'Network': self.network
             }}, default_flow_style=False)
         f = open("log.txt", "a")
-        f.write(log + '\n')
+        f.write(lg + '\n')
         f.close()
 
 
